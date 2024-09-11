@@ -1,36 +1,56 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# QuizGem: A Quiz Generator App
 
-## Getting Started
+This is a quiz generator app that takes a URL as input and generates a quiz based on the content of the URL. The quiz consists of 10 questions, with a 60-second timer for each question, and provides a scorecard at the end of the quiz. The app also includes error handling for unsupported URLs.
 
-First, run the development server:
+## Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **Dynamic Quiz Generation**: Enter any educational URL to generate a 10-question quiz.
+- **Timed Questions**: Each question has a 60-second timer.
+- **Scorecard**: Displays total score, correct/wrong answers, and time taken upon completion.
+- **Loading State**: Shows a loading animation while generating the quiz.
+- **Error Handling**: Gracefully handles errors when an invalid or unsupported URL is provided.
+- **Try Again Option**: Users can retry with a new URL if the previous one fails.
+  
+## Installation
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+1. Clone the repository:
+    ```bash
+    git clone https://github.com/Prasad-264/QuizGem.git
+    cd QuizGem
+    ```
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+2. Install dependencies:
+    ```bash
+    npm install
+    ```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+3. Set up environment variables:
+    - Create a `.env` file in the root directory.
+    - Add your Gemini API key:
+      ```bash
+      NEXT_PUBLIC_GEMINI_API_KEY=your-api-key-here
+      ```
 
-## Learn More
+4. Run the app locally:
+    ```bash
+    npm run dev
+    ```
 
-To learn more about Next.js, take a look at the following resources:
+5. Visit the app at `http://localhost:3000`.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Usage
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+1. Enter a valid educational URL in the input field.
+2. Click on **Generate Quiz** to start the quiz generation process.
+3. The app will show a loading animation while generating the quiz.
+4. Once the quiz is ready, you can answer each question within 60 seconds.
+5. Upon completion, the scorecard will show your score, correct answers, wrong answers, and total time taken.
+6. If the URL is unsupported or invalid, an error message will appear with a "Try Again" button to re-enter the URL.
 
-## Deploy on Vercel
+## Environment Variables
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **NEXT_PUBLIC_GEMINI_API_KEY**: Required to interact with the Gemini API for quiz generation.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Demo
+
+You can view a live demo of the app [here](https://quiz-gem.vercel.app/).
