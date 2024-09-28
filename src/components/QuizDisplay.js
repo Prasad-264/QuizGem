@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 
 const QuizDisplay = ({ quizData }) => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -29,7 +30,7 @@ const QuizDisplay = ({ quizData }) => {
         setIsQuizCompleted(true);
       }
     }
-  }, [timer]);
+  }, [timer, currentQuestion, quizData.quizzes.length]);
 
   const handleAnswerClick = (answer) => {
     if (isAnswered) return;
@@ -76,81 +77,97 @@ const QuizDisplay = ({ quizData }) => {
   };
 
   return (
-    <div className="mt-10 md:mt-16 w-4/5 md:w-2/4 mx-auto">
-      <h1 className="text-2xl md:text-3xl text-center font-bold mb-4 text-white">
+    <div className="w-full max-w-2xl mx-auto px-2 py-8">
+      <h1 className="text-3xl sm:text-4xl text-center font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">
         {quizData.title}
       </h1>
-      <div className="bg-[#313131] md:py-6 py-4 md:px-8 px-6 rounded-lg">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="bg-gray-900 bg-opacity-70 backdrop-filter backdrop-blur-xl rounded-3xl shadow-2xl p-6 border border-cyan-500"
+      >
         {!isQuizCompleted ? (
           <div>
-            <div className="text-white flex items-center justify-between">
-              <p className="text-md">Question {currentQuestion + 1}/10</p>
-              <p className="text-md">{timer} Sec</p>
+            <div className="flex items-center justify-between mb-4">
+              <p className="text-cyan-300">
+                Question {currentQuestion + 1}/{quizData.quizzes.length}
+              </p>
+              <p className="text-cyan-300">{timer} sec</p>
             </div>
-            <div className="my-4 text-white">
-              <p className="text-lg font-semibold">{currentQuiz.question}</p>
+            <div className="mb-6">
+              <p className="text-white text-lg sm:text-xl font-semibold">
+                {currentQuiz.question}
+              </p>
             </div>
-            <ul className="space-y-2">
+            <div className="space-y-3">
               {currentQuiz.options.map((option, index) => (
-                <li
+                <motion.button
                   key={index}
-                  className={`cursor-pointer text-white p-2 border rounded-xl ${
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={() => handleAnswerClick(option)}
+                  className={`w-full py-3 px-4 rounded-lg text-left transition-all duration-300 ${
                     selectedAnswer === option
                       ? isCorrect
-                        ? "bg-green-500 font-semibold"
-                        : "bg-red-500 font-semibold"
-                      : "bg-[#313131] hover:bg-gray-700"
+                        ? "bg-green-500 text-white"
+                        : "bg-red-500 text-white"
+                      : "bg-gray-800 text-cyan-300 hover:bg-gray-700"
                   }`}
-                  onClick={() => handleAnswerClick(option)}
                 >
                   {option}
-                </li>
+                </motion.button>
               ))}
-            </ul>
-            <div className="mt-4 text-right">
-              <button
-                className="bg-purple-500 hover:bg-purple-600 text-white font-bold py-2 px-8 rounded-xl disabled:cursor-not-allowed"
+            </div>
+            <div className="mt-6 text-right">
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
                 onClick={handleNextClick}
                 disabled={!isAnswered}
+                className="bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-bold py-2 px-6 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {currentQuestion === quizData.quizzes.length - 1
                   ? "Finish"
                   : "Next"}
-              </button>
+              </motion.button>
             </div>
           </div>
         ) : (
           <div className="text-center">
-            <h2 className="md:text-3xl text-2xl font-extrabold mb-6 text-purple-500 animate-pulse">
+            <h2 className="text-3xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500 animate-pulse">
               Quiz Completed 🎉
             </h2>
-            <p className="text-white text-lg mb-4">
+            <p className="text-cyan-300 text-lg mb-4">
               <span className="font-semibold">Total Score:</span>{" "}
-              <span className="text-green-400 text-2xl">{score}</span> / 100
+              <span className="text-2xl text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">
+                {score}
+              </span>{" "}
+              / 100
             </p>
-            <p className="text-white text-lg mb-4">
+            <p className="text-cyan-300 text-lg mb-4">
               <span className="font-semibold">Correct Answers:</span>{" "}
               <span className="text-green-400">{correctCount}</span>
             </p>
-            <p className="text-white text-lg mb-4">
+            <p className="text-cyan-300 text-lg mb-4">
               <span className="font-semibold">Wrong Answers:</span>{" "}
               <span className="text-red-400">{wrongCount}</span>
             </p>
-            <p className="text-white text-lg mb-4">
+            <p className="text-cyan-300 text-lg mb-6">
               <span className="font-semibold">Total Time Taken:</span>{" "}
               <span className="text-blue-400">{totalTimeTaken}</span> seconds
             </p>
-            <div className="mt-6">
-              <button
-                onClick={handleReset}
-                className="bg-purple-500 hover:bg-purple-600 text-white py-2 px-6 rounded-lg shadow-md transition duration-300"
-              >
-                Try Again
-              </button>
-            </div>
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={handleReset}
+              className="bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-bold py-2 px-6 rounded-lg shadow-lg transition duration-300"
+            >
+              Try Again
+            </motion.button>
           </div>
         )}
-      </div>
+      </motion.div>
     </div>
   );
 };

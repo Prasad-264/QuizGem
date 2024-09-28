@@ -2,9 +2,9 @@ import React from "react";
 
 const Loading = () => {
   return (
-    <div className="mt-20 md:w-2/4 w-4/5 mx-auto">
-      <h1 className="mb-4 bg-slate-700 h-4 w-2/3 mx-auto rounded-md animate-pulse"></h1>
-      <div className="bg-[#313131] py-6 px-8 rounded-lg animate-pulse">
+    <div className="w-full max-w-2xl mx-auto px-2 py-8">
+      <h1 className="bg-slate-700 h-4 w-2/3 mx-auto rounded-md animate-pulse mb-6"></h1>
+      <div className="bg-gray-900 bg-opacity-70 backdrop-filter backdrop-blur-xl rounded-3xl shadow-2xl py-6 px-8 animate-pulse">
         <div className="flex items-center justify-between mb-4">
           <div className="h-3 bg-slate-700 rounded w-24"></div>
           <div className="h-3 bg-slate-700 rounded w-12"></div>
