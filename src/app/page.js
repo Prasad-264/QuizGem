@@ -8,7 +8,7 @@ import Loading from "@/components/Loading";
 export default function Home() {
   const [quiz, setQuiz] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  const [error, setError] = useState("")  ;
 
   const handleUrlSubmit = async (url) => {
     setLoading(true);
